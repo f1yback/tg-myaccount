@@ -8,6 +8,17 @@ framework:
     #esi: true
     #fragments: true
 
+    messenger:
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+    # Internationalization
+    default_locale: en
+    translator:
+        default_path: '%kernel.project_dir%/translations'
+        fallbacks:
+            - en
+
 when@test:
     framework:
         test: true

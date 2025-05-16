@@ -1,0 +1,25 @@
+bot:
+  start:
+    welcome: "👋 Welcome to VPN Personal Account!\n\n💰 Your balance: %balance% rub.\n\nChoose an action:"
+    menu:
+      free_trial: "🚀 Try for free"
+      my_configs: "📋 My configurations"
+      add_balance: "💳 Add balance"
+  free_trial:
+    choose_protocol: "Choose VPN protocol for free trial (24 hours):"
+    wireguard: "WireGuard"
+    vless_reality: "VLESS + Reality"
+    created: "✅ Free trial configuration created!\n\n🔧 Protocol: %protocol%\n⏰ Valid until: %expires_at%\n\n📄 Configuration:\n```\n%config%\n```"
+    not_eligible: "❌ You have already used the free trial or have active configurations."
+  configs:
+    none: "📭 You have no active configurations."
+    list: "📋 Your active configurations:\n\n"
+    item: "🔹 Configuration #%number%\n   Protocol: %protocol%\n   Valid until: %expires%\n\n"
+    permanent: "Permanent"
+  balance:
+    current: "💳 Balance replenishment\n\nCurrent balance: %balance% rub.\n\nContact administrator to add funds."
+  error:
+    config_creation: "❌ Error creating configuration: %error%"
+  protocol:
+    wireguard: "WireGuard"
+    vless_reality: "VLESS + Reality"

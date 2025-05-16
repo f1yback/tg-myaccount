@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    telegram_bot_token: '%env(TELEGRAM_BOT_TOKEN)%'
+    telegram_webhook_url: '%env(TELEGRAM_WEBHOOK_URL)%'
+    vpn_api_base_url: '%env(VPN_API_BASE_URL)%'
+    vpn_api_key: '%env(VPN_API_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -16,5 +20,31 @@ services:
     App\:
         resource: '../src/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Telegram Bot Service
+    App\Service\Telegram\TelegramBotApiInterface:
+        class: App\Service\Telegram\TelegramBotApiAdapter
+        arguments:
+            $botToken: '%telegram_bot_token%'
+
+    # VPN API Client
+    App\Service\Vpn\VpnApiClientInterface:
+        class: App\Service\Vpn\VpnApiClient
+        arguments:
+            $baseUrl: '%vpn_api_base_url%'
+            $apiKey: '%vpn_api_key%'
+
+    # Repositories
+    App\Repository\User\UserRepositoryInterface: '@App\Repository\User\UserRepository'
+    App\Repository\Vpn\VpnConfigRepositoryInterface: '@App\Repository\Vpn\VpnConfigRepository'
+
+    # Managers
+    App\Service\User\UserManagerInterface: '@App\Service\User\UserManager'
+    App\Service\Vpn\VpnConfigManagerInterface: '@App\Service\Vpn\VpnConfigManager'
+    App\Service\Telegram\TranslationServiceInterface: '@App\Service\Telegram\TranslationService'
+    App\Service\Telegram\TranslationService:
+        arguments:
+            $translator: '@translator'
+
+    App\Service\Telegram\Command\BotCommandFactory: ~
+
+    App\Service\Telegram\TelegramBotHandlerInterface: '@App\Service\Telegram\TelegramBotHandler'
